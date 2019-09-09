@@ -1,30 +1,35 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace WCFServicesApp.Persistence
 {
     public class Data
     {
+        static List<Domain.Developer> list;
+
+        static Data()
+        {
+            list = new List<Domain.Developer>()
+            {
+                new Domain.Developer {DeveloperID = 1,FullName ="John Doe", Position = ".NET Developer"},
+                new Domain.Developer {DeveloperID = 2,FullName ="Mary Well", Position = "Java Developer"},
+            };           
+        }
+
         public static Domain.Developer GetDeveloperById(int id)
         {
-            return Seed().FirstOrDefault(x => x.DeveloperID == id);
+            return list.FirstOrDefault(x => x.DeveloperID == id);
         }
 
         public static IEnumerable<Domain.Developer> GetDevelopers()
         {
-            return Seed();
+            return list;
         }
 
-        private static IEnumerable<Domain.Developer> Seed()
+        public static void AddDeveloper(Domain.Developer developer)
         {
-            return new List<Domain.Developer>
-            {
-                new Domain.Developer {DeveloperID = 1,FullName ="John Luiton", Position = ".NET Developer"},
-                new Domain.Developer {DeveloperID = 2,FullName ="Mary Well", Position = "Java Developer"},
-                new Domain.Developer {DeveloperID = 3,FullName ="Rick Levis"},
-                new Domain.Developer {DeveloperID = 4,FullName ="Coleman Regal"},
-                new Domain.Developer {DeveloperID = 5,FullName ="Mark Ton"},
-            };
+           list.Add(developer);
         }
     }
 }

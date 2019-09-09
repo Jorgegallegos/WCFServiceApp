@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 
@@ -22,5 +23,13 @@ namespace WCFServicesApp.Interfaces
             BodyStyle = WebMessageBodyStyle.Bare)]
         [OperationContract]
         IEnumerable<Domain.Developer> GetDevelopers();
+
+        [WebInvoke(Method = "POST",
+            UriTemplate = "/Add",
+            ResponseFormat = WebMessageFormat.Xml,
+            RequestFormat = WebMessageFormat.Xml,
+            BodyStyle = WebMessageBodyStyle.Bare)]
+        [OperationContract]
+        void AddDeveloper(Domain.Developer developer);
     }
 }

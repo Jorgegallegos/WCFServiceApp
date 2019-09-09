@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using WCFServicesApp.Domain;
@@ -9,6 +10,11 @@ namespace WCFServicesApp.Implementations
 {
     public class Developer : IDeveloper
     {
+        public void AddDeveloper(Domain.Developer developer)
+        {
+            Persistence.Data.AddDeveloper(developer);
+        }
+
         public Domain.Developer GetDeveloperById(string id)
         {
             int.TryParse(id, out int ident);
