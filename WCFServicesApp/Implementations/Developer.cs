@@ -1,30 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Web;
-using WCFServicesApp.Domain;
 using WCFServicesApp.Interfaces;
 
 namespace WCFServicesApp.Implementations
 {
     public class Developer : IDeveloper
     {
-        public void AddDeveloper(Domain.Developer developer)
+        public void AddJsonDeveloper(string request)
         {
-            Persistence.Data.AddDeveloper(developer);
+            var dev = Helpers.Serializer.JsonStringToEntity<Domain.Developer>(request);
+        }
+
+        public void AddXmlDeveloper(string request)
+        {
+            var dev = Helpers.Serializer.XmlStringToEntity<Domain.Developer>(request);
         }
 
         public Domain.Developer GetDeveloperById(string id)
         {
-            int.TryParse(id, out int ident);
-
-            return Persistence.Data.GetDeveloperById(ident);
+            return Persistence.Data.GetDeveloperById(Convert.ToInt32(id));
         }
 
-        public IEnumerable<Domain.Developer> GetDevelopers()
+        public List<Domain.Developer> GetDevelopers()
         {
-            return Persistence.Data.GetDevelopers();
+            return Persistence.Data.GetDevelopers().ToList();
+        }
+
+        public void JsonPost(Domain.Developer developer)
+        {
+            Persistence.Data.AddDeveloper(developer);
+        }
+
+        public void XmlPost(Domain.Developer developer)
+        {
+            Persistence.Data.AddDeveloper(developer);
         }
     }
 }
