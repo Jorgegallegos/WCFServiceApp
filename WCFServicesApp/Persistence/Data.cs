@@ -6,7 +6,7 @@ namespace WCFServicesApp.Persistence
 {
     public class Data
     {
-        static List<Domain.Developer> list;
+        static List<Domain.Developer> list; 
 
         static Data()
         {
